@@ -1,15 +1,5 @@
 version: "3.5"
 
-volumes:
-  bundle:
-    driver: local
-  mysql:
-    driver: local
-  tmp:
-    driver: local
-  node-modules:
-    driver: local
-
 services:
   app:
     build:
@@ -52,6 +42,16 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=app_development
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql:/var/lib/mysql
+
+volumes:
+  bundle:
+    driver: local
+  mysql:
+    driver: local
+  tmp:
+    driver: local
+  node-modules:
+    driver: local

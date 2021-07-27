@@ -40,13 +40,14 @@ ARG YARN_VERSION=1.22.4
 RUN npm install -g yarn@${YARN_VERSION}
 
 # install specific bundler version
-ARG BUNDLER_VERSION=2.0.2
+ARG BUNDLER_VERSION=2.2
 RUN gem install bundler -v "${BUNDLER_VERSION}"
 
 # install gems
-ARG BUNDLE_WITHOUT="development test"
+# ARG BUNDLE_WITHOUT="development test"
 COPY Gemfile* ./
-RUN bundle install --without ${BUNDLE_WITHOUT}
+#--without ${BUNDLE_WITHOUT}
+RUN bundle install
 
 # install node modules
 COPY package.json yarn.lock ./
