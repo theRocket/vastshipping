@@ -1,0 +1,11 @@
+require: rubocop-rails
+
+AllCops:
+    NewCops: enable
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+   - 'spec/**/*'
