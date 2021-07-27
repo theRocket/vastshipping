@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2021_07_27_063853) do
 
   create_table "distances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "from_port"
-    t.integer "to_port"
+    t.bigint "from_port"
+    t.bigint "to_port"
     t.float "kilometers"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2021_07_27_063853) do
 
   create_table "fleet_travel_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "ship_id"
-    t.integer "from_port"
-    t.integer "to_port"
+    t.bigint "from_port"
+    t.bigint "to_port"
     t.datetime "time_depart"
     t.datetime "time_arrive"
     t.datetime "created_at", precision: 6, null: false
