@@ -18,7 +18,7 @@ services:
         RAILS_ENV: development
       target: base
       context: .
-    image: "my-app:1.0"
+    image: "rjrockets/vast-app:1.0"
     # so things like pry work
     tty: true
     stdin_open: true

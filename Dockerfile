@@ -1,4 +1,4 @@
-FROM ruby:2.6 as base
+FROM ruby:2.7 as base
 
 # set some default ENV values for the image
 ENV BUNDLE_PATH /bundle
