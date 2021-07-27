@@ -1,20 +1,45 @@
 # Vast Shipping Company
 
 ## Requirements Added
+
 - Docker Desktop running (for `docker-compose` commands)
 - ports 3000 and 3307 open on the host (for Puma and MySQL, respectively)
 
-## Requirements Complied With
+### Requirements Complied With
 
 - __Did not post this challenge or my solution on any public website__ -- (used private Github Repo)
 - Wrote unit tests in RSpec
 - Used rubocop for code style enforcement
 
+### Starting App
+
+1. From project root directory:
+
+> docker-compose up
+
+If a ruby dependency is missing, the Docker build may have missed it. Exec into the container with:
+> docker-compose run --rm --service-ports app bash
+> bundle install
+> exit
+
+Then repeat Step 1
+
+2. Once both containers are running, you'll have to exec into the Rails container to talk to the MySQL database
+
+> ~ docker exec -it sportradar_vastshipping_app_1 /bin/sh
+> bundle exec rake db:migrate
+> bundle exec rake db:seed
+
+This will create the tables and populate the data from the CSV files provided
+
 ## Sport Radar Contact
+
 My contact has been Sean Quinn (s.quinn@sportradar.com) and I have shared this private repo on Github only with him.
+
 ## Background Provided
+
 The Vast Shipping Company has a fleet of ships that venture between a set of sea ports in the Wohlstand Sea. The ships
-and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods 
+and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods
 the owner of the Vast Shipping Company likes to track certain statistics of his fleet to help him optimize the
 business.
 
