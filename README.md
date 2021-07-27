@@ -17,14 +17,14 @@
 
 > docker-compose up
 
-If a ruby dependency is missing, the Docker build may have missed it. Exec into the container with:
+If container fails to start due to a missing ruby dependency, the Docker build may have missed it during `bundle install`. Exec into the container with:
 > docker-compose run --rm --service-ports app bash
 > bundle install
 > exit
 
-Then repeat Step 1
+Then repeat Step 1, since your Rails container stopped upon exit of the bash session.
 
-2. Once both containers are running, you'll have to exec into the Rails container to talk to the MySQL database
+2. Once both containers are running, you'll have to exec into the Rails container again to talk to the MySQL database
 
 > ~ docker exec -it sportradar_vastshipping_app_1 /bin/sh
 > bundle exec rake db:migrate

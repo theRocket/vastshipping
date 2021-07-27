@@ -6,3 +6,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+require './data_file_helper'
+
+DataFileHelper.load_data_files
+# loads data into global vars
+# @ports_data
+# @ships_data
+# @fleet_travel_log
+
+p "creating Ships:" + @ships_data
+
+@ships_data.foreach do |row|
+    print(row)
+#   Ship.create( {
+#     name: row
+#   } ) 
+end
