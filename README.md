@@ -2,7 +2,7 @@
 
 ## Requirements Added
 - Docker Desktop running (for `docker-compose` commands)
-
+- ports 3000 and 3307 open on the host (for Puma and MySQL, respectively)
 
 ## Requirements Complied With
 

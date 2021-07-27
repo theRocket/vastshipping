@@ -1,0 +1,2 @@
+class FleetTravelLog < ApplicationRecord
+end
