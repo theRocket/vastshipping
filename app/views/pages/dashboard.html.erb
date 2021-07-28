@@ -1,0 +1,110 @@
+<h1>Vast Fleet Logs</h1>
+
+<table><tr valign='top'><td>
+<h2>Ships &amp; Ports</h2>
+<table><tr valign='top'>
+<td>
+<table class="inner">
+  <thead>
+    <tr>
+      <th>Ship ID</th>
+      <th>Ship Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ships.each do |ship| %>
+      <tr>
+        <td><%= ship.id %></td>
+        <td><%= ship.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</td>
+<td>
+
+<table class="inner">
+  <thead>
+    <tr>
+      <th>Port ID</th>
+      <th>Port Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ports.each do |port| %>
+      <tr>
+        <td><%= port.id %></td>
+        <td><%= port.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</td>
+</tr></table>
+
+<h2>Fleet Travel Log</h2>
+<h3>All times in <%= Time.zone %></h3>
+<table class="inner">
+  <thead>
+    <tr>
+      <th>Ship</th>
+      <th>From Port</th>
+      <th>To Port</th>
+      <th>Time Depart</th>
+      <th>Time Arrive</th>
+      <th>Distance</th>
+      <th>Avg Speed</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fleet_logs.each do |log| %>
+      <tr>
+        <td><%= log.ship.name %></td>
+        <td><%= log.from_port.name %></td>
+        <td><%= log.to_port.name %></td>
+        <td><%= log.time_depart.strftime("%m-%d-%Y %H:%M:%S") %></td>
+        <td><%= log.time_arrive.strftime("%m-%d-%Y %H:%M:%S") %></td>
+        <td><%= log.distance_traveled.round(0) %> km</td>
+        <td><%= log.average_trip_speed.round(2) %> km/hr</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</td>
+<td>
+<h2>Fleet Manager</h2>
+    <%= form_with url: "/", local: true, method: :get do |form| %>
+    <%= form.label :query, "Get stats on these dates:" %>
+    <%= form.select :sail_day, @dates %>
+    <!-- FleetTravelLog.pluck(:time_depart).map{|x| x.to_date}.uniq) :id, :time_depart, {prompt: true}, {required: "required"})%> --> 
+    <%= form.submit "Query" %>
+<% end %>
+<br/>
+<b>Day Queried:</b> <%= params[:sail_day] %>
+<table class="inner" id="query_ships">
+  <thead>
+    <tr>
+      <th>Slowest Ship</th>
+      <th>Fastest Ship</th>
+      <th>Most Visited Port</th>
+      <th>Least Visited Port</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @ship_slow.try(:name) %></td>
+        <td><%= @ship_fast.try(:name) %></td>
+        <td><%= @port_most.try(:name) %></td>
+        <td><%= @port_least.try(:name) %></td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<div id="query_ports">
+        <%# <%= render @portdata %>  
+</div>
+</td></tr></table>

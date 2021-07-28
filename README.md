@@ -3,7 +3,7 @@
 ## Requirements Added
 
 - Docker Desktop running (for `docker-compose` commands)
-- ports 3000 and 3307 open on the host (for Puma and MySQL, respectively)
+- ports 3001 and 3307 open on the host (for Puma and MySQL, respectively)
 
 ### Requirements Complied With
 
@@ -54,9 +54,9 @@ Note the times were converted from `-0500` (GMT-5) in the text file to UTC in th
 So converting it back to CDT for Minneapolis, MN at runtime is necessary to make the "same day" calculations accurate. This is done by setting the Rails environment in `config/application.rb`:
 
 > irb(main):001:0> Time.zone
-=> #<ActiveSupport::TimeZone:0x000055beac3068d8 @name="Eastern Time (US & Canada)", @utc_offset=nil, @tzinfo=#<TZInfo::DataTimezone: America/New_York>>
+=> #<ActiveSupport::TimeZone:0x000055cb3565ee28 @name="Central Time (US & Canada)", @utc_offset=nil, @tzinfo=#<TZInfo::DataTimezone: America/Chicago>>
 
-3. Go to localhost:3000 to see the Fleet Manager dashboard.
+3. Go to localhost:3001 to see the Fleet Manager dashboard.
 
 ## Sport Radar Contact
 
