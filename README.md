@@ -19,15 +19,19 @@
 
 If container fails to start due to a missing ruby dependency (like `mini_portile2 2.5.3`), the Docker image build may have missed it during `bundle install`. Exec into the container with:
 > docker-compose run --rm --service-ports app bash
+
 > bundle install
+
 > exit
 
 Then repeat Step 1, since your Rails container stopped upon exit of the bash session.
 
 2. Once both containers are running, you'll have to exec into the Rails container again to talk to the MySQL database:
 
-> ~ docker exec -it sportradar_vastshipping_app_1 /bin/sh
+> docker exec -it sportradar_vastshipping_app_1 /bin/sh
+
 > bundle exec rake db:migrate
+
 > bundle exec rake db:seed
 
 This will create the table schemas and populate the data from the CSV files provided, with relations built in. Example, from the Rails console (note the internal IDs are shifted by one to accomodate MySQL autoincrement behavior for primary keys):
@@ -61,16 +65,23 @@ So converting it back to CDT for Minneapolis, MN at runtime is necessary to make
 ## Running Tests
 Several steps involved here, beginning with creating the test database and with stopping and starting the Rails container into test mode (this could be automated for CI/CD workflows):
 > docker exec -it sportradar_vastshipping_mysql_1 /bin/sh
+
 > mysql -u root -p
+
 > create database app_test;
+
 > exit
 
 
 > docker-compose run --rm --service-ports -e RAILS_ENV=test app bash
+
 > root@08d697da21cb:/home/app# echo $RAILS_ENV
 test
+
 > ./bin/rails generate rspec:install
+
 > bundle exec rake db:migrate
+
 > bundle exec rspec spec/models
 
 ## Sport Radar Contact
