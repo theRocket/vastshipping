@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ships.each do |ship| %>
+      <tr>
+        <td><%= ship.id %></td>
+        <td><%= ship.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

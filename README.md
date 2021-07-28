@@ -24,13 +24,39 @@ If container fails to start due to a missing ruby dependency, the Docker build m
 
 Then repeat Step 1, since your Rails container stopped upon exit of the bash session.
 
-2. Once both containers are running, you'll have to exec into the Rails container again to talk to the MySQL database
+2. Once both containers are running, you'll have to exec into the Rails container again to talk to the MySQL database:
 
 > ~ docker exec -it sportradar_vastshipping_app_1 /bin/sh
 > bundle exec rake db:migrate
 > bundle exec rake db:seed
 
-This will create the tables and populate the data from the CSV files provided
+This will create the table schemas and populate the data from the CSV files provided, with relations built in. Example, from the Rails console (note the internal IDs are shifted by one to accomodate MySQL autoincrement behavior for primary keys):
+
+> ./bin/rails c
+
+>irb(main):001:0> s = Ship.find(1)
+  Ship Load (0.8ms)  SELECT `ships`.* FROM `ships` WHERE `ships`.`id` = 1 LIMIT 1
+=> #<Ship id: 1, name: "Alpha", created_at: "2021-07-28 02:58:10", updated_at: "2021-07-28 02:58:10">
+
+>irb(main):002:0> s.fleet_travel_logs
+  FleetTravelLog Load (0.5ms)  SELECT `fleet_travel_logs`.* FROM `fleet_travel_logs` WHERE `fleet_travel_logs`.`ship_id` = 1 LIMIT 11
+  => #<ActiveRecord::Associations::CollectionProxy [#<FleetTravelLog id: 4, ship_id: 1, from_port_id: 8, to_port_id: 4, time_depart: "2016-06-12 11:20:00", time_arrive: "2016-06-12 13:05:36", distance_traveled: 81.0, average_trip_speed: 46.0227>, #<FleetTravelLog id: 7, ship_id: 1, from_port_id: 4, to_port_id: 7, time_depart: "2016-06-12 15:14:36", time_arrive: "2016-06-12 16:29:00" ...
+
+> irb(main):003:0> s.fleet_travel_logs.count()
+   (0.7ms)  SELECT COUNT(*) FROM `fleet_travel_logs` WHERE `fleet_travel_logs`.`ship_id` = 1
+=> 74
+
+Note the times were converted from `-0500` (GMT-5) in the text file to UTC in the database:
+
+> irb(main):010:0> log = s.fleet_travel_logs.first.time_depart.zone
+=> "UTC"
+
+So converting it back to CDT for Minneapolis, MN at runtime is necessary to make the "same day" calculations accurate. This is done by setting the Rails environment in `config/application.rb`:
+
+> irb(main):001:0> Time.zone
+=> #<ActiveSupport::TimeZone:0x000055beac3068d8 @name="Eastern Time (US & Canada)", @utc_offset=nil, @tzinfo=#<TZInfo::DataTimezone: America/New_York>>
+
+3. Go to localhost:3000 to see the Fleet Manager dashboard.
 
 ## Sport Radar Contact
 
@@ -38,17 +64,11 @@ My contact has been Sean Quinn (s.quinn@sportradar.com) and I have shared this p
 
 ## Background Provided
 
-The Vast Shipping Company has a fleet of ships that venture between a set of sea ports in the Wohlstand Sea. The ships
-and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods
-the owner of the Vast Shipping Company likes to track certain statistics of his fleet to help him optimize the
-business.
+The Vast Shipping Company has a fleet of ships that venture between a set of sea ports in the Wohlstand Sea. The ships and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods the owner of the Vast Shipping Company likes to track certain statistics of his fleet to help him optimize the business.
 
 ## Programming Challenge
 
-Develop a class called FleetManager that would have the following methods or properties. Note, the definition of a
-'completed trip' is a trip that has both started and ended. So when we are interested in number of completed trips
-in a day, we are interested in the trips that both started and completed with in that day. For this challenge, assume
-that the owner of Vast Shipping and all the boats operate in the same timezone.
+Develop a class called FleetManager that would have the following methods or properties. Note, the definition of a 'completed trip' is a trip that has both started and ended. So when we are interested in number of completed trips in a day, we are interested in the trips that both started and completed with in that day. For this challenge, assume that the owner of Vast Shipping and all the boats operate in the same timezone.
 
 
 ```ruby
