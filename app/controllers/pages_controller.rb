@@ -28,7 +28,8 @@ class PagesController < ApplicationController
             @trip_distances = []
             @ships.each do |ship|
                 # build array of ship name and distances
-                @trip_distances.append([ship.name,ship_dist_hash[ship.id]])
+                ship_dist = ship_dist_hash[ship.id]
+                @trip_distances.append([ship.name, (ship_dist ? ship_dist : 0)])
                 @fastest_trips.append(
                     ship.fleet_travel_logs.where('time_depart >= ? AND time_arrive < ?', sail_date, sail_date+1.day)
                         .order(:average_trip_speed)
