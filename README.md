@@ -56,7 +56,7 @@ So converting it back to CDT for Minneapolis, MN at runtime is necessary to make
 > irb(main):001:0> Time.zone
 => #<ActiveSupport::TimeZone:0x000055cb3565ee28 @name="Central Time (US & Canada)", @utc_offset=nil, @tzinfo=#<TZInfo::DataTimezone: America/Chicago>>
 
-3. Go to localhost:3001 to see the Fleet Manager dashboard.
+3. Go to [localhost:3001](http://localhost:3001) to see the Fleet Manager dashboard.
 
 ## Sport Radar Contact
 
