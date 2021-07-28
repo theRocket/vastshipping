@@ -30,6 +30,7 @@
       </tr>
   </tbody>
 </table>
+<% if @trip_distances %>
 <h3>Distances Traveled on this Day</h3>
 <table class="inner">
   <thead>
@@ -48,6 +49,8 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+<% if @fastest_trips %>
 <h3>Fastest Trips on this Day</h3>
 <table class="inner">
   <thead>
@@ -76,6 +79,8 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+<% if @slowest_trips %>
 <h3>Slowest Trips on this Day</h3>
 <table class="inner">
   <thead>
@@ -104,6 +109,7 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
 </td>
 <td>
 <h1>Vast Fleet Logs</h1>
