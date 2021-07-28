@@ -15,9 +15,9 @@
 
 1. From project root directory:
 
-> docker-compose up
+> docker-compose up -d
 
-If container fails to start due to a missing ruby dependency, the Docker build may have missed it during `bundle install`. Exec into the container with:
+If container fails to start due to a missing ruby dependency (like `mini_portile2 2.5.3`), the Docker image build may have missed it during `bundle install`. Exec into the container with:
 > docker-compose run --rm --service-ports app bash
 > bundle install
 > exit

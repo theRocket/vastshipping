@@ -19,19 +19,19 @@ load_data_files
 
 # presumes database starting from scratch with ID=1 for first record
 # only run once or reset autoincrement point
-# @ships_data.each do |row|
-#   Ship.create({
-#     name: row
-#   }) 
-#   end
+@ships_data.each do |row|
+  Ship.create({
+    name: row
+  }) 
+  end
 
-# # presumes database starting from scratch with ID=1 for first record
-# # only run once or reset autoincrement point
-# @ports_data.each do |row|
-#   Port.create( {
-#     name: row
-#   }) 
-#   end
+# presumes database starting from scratch with ID=1 for first record
+# only run once or reset autoincrement point
+@ports_data.each do |row|
+  Port.create( {
+    name: row
+  }) 
+  end
 
 @fleet_travel_log.each do |item|
   # all IDs in data files are 0 based, but with assumptions above, need foreign key to be 1-based
