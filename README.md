@@ -1,15 +1,21 @@
 # Vast Shipping Company
 
-## Requirements Added
+## Background Provided
+
+The Vast Shipping Company has a fleet of ships that venture between a set of sea ports in the Wohlstand Sea. The ships and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods the owner of the Vast Shipping Company likes to track certain statistics of his fleet to help him optimize the business.
+
+## Requirements For App to Run Locally
 
 - Docker Desktop running (for `docker-compose` commands)
 - ports 3001 and 3307 open on the host (for Puma and MySQL, respectively)
 
-### Requirements Complied With
+## My Approach with Rails and MySQL
 
-- __Did not post this challenge or my solution on any public website__ -- (used private Github Repo)
-- Wrote unit tests in RSpec
-- Used rubocop for code style enforcement
+Using two docker containers, one for Rails and one for MySQL, we can answer the questions and display them on an interactive web page where the user can query for a given date in the fleet travel logs.
+
+The logic requested is mainly in `/app/models/port.rb` and `/app/models/ship.rb` as well as the `/app/controllers/pages_controller.rb` that serves the database queries out to the dashboard view.
+
+Some familiarity with Docker and Rails will be helpful here, but the commands below should get you a running app at [localhost:3001](http://localhost:3001) as long as your machine meets the requirements above (I created this on macOS Catalina).
 
 ### Starting App
 
@@ -17,14 +23,15 @@
 
 > docker-compose up -d
 
-If container fails to start due to a missing ruby dependency (like `mini_portile2 2.5.3`), the Docker image build may have missed it during `bundle install`. Exec into the container with:
+An image should take a minute to build.
+If the Rails container fails to start due to a missing ruby dependency (like `mini_portile2 2.5.3`), the Docker image build may have missed it during `bundle install`. Exec into the container with:
 > docker-compose run --rm --service-ports app bash
 
 > bundle install
 
 > exit
 
-Then repeat Step 1, since your Rails container stopped upon exit of the bash session.
+Then repeat Step 1, since your Rails container stopped upon exit of the temporary bash session.
 
 2. Once both containers are running, you'll have to exec into the Rails container again to talk to the MySQL database:
 
@@ -88,13 +95,16 @@ test
 
 My contact has been Sean Quinn (s.quinn@sportradar.com) and I have shared this private repo on Github only with him.
 
-## Background Provided
-
-The Vast Shipping Company has a fleet of ships that venture between a set of sea ports in the Wohlstand Sea. The ships and their crews work non stop to load and deliver goods to ports. While the crews diligently work to deliver goods the owner of the Vast Shipping Company likes to track certain statistics of his fleet to help him optimize the business.
-
-## Programming Challenge
+## Spec Provided
 
 Develop a class called FleetManager that would have the following methods or properties. Note, the definition of a 'completed trip' is a trip that has both started and ended. So when we are interested in number of completed trips in a day, we are interested in the trips that both started and completed with in that day. For this challenge, assume that the owner of Vast Shipping and all the boats operate in the same timezone.
+
+### Requirements Complied With
+
+- __Did not post this challenge or my solution on any public website__ -- (used private Github Repo)
+- Wrote unit tests in RSpec
+- Used rubocop for code style enforcement
+
 
 
 ```ruby
