@@ -58,6 +58,21 @@ So converting it back to CDT for Minneapolis, MN at runtime is necessary to make
 
 3. Go to [localhost:3001](http://localhost:3001) to see the Fleet Manager dashboard.
 
+## Running Tests
+Several steps involved here, beginning with creating the test database and with stopping and starting the Rails container into test mode (this could be automated for CI/CD workflows):
+> docker exec -it sportradar_vastshipping_mysql_1 /bin/sh
+> mysql -u root -p
+> create database app_test;
+> exit
+
+
+> docker-compose run --rm --service-ports -e RAILS_ENV=test app bash
+> root@08d697da21cb:/home/app# echo $RAILS_ENV
+test
+> ./bin/rails generate rspec:install
+> bundle exec rake db:migrate
+> bundle exec rspec spec/models
+
 ## Sport Radar Contact
 
 My contact has been Sean Quinn (s.quinn@sportradar.com) and I have shared this private repo on Github only with him.

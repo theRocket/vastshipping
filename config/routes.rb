@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root to: 'pages#dashboard'
   get 'query', to: 'pages#dashboard'
   get 'health', to: 'application#health'
-  resources :ships
-  resources :ports
+  # resources :ships
+  # resources :ports
 end
