@@ -6,7 +6,7 @@ class Port < ApplicationRecord
 
     def self.query_visits(sail_day, which)
         if sail_day
-            sail_date = DateTime.parse(sail_day)
+            sail_date = sail_day.in_time_zone(Time.zone)
             # gets a hash of key: Port ID, value: count
             log_join = FleetTravelLog.joins(:to_port)
                     .where('time_depart >= ? AND time_arrive < ?', sail_date, sail_date+1.day)
