@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_063853) do
+ActiveRecord::Schema.define(version: 2021_07_27_224427) do
 
   create_table "distances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "from_port"
-    t.bigint "to_port"
+    t.bigint "from_port_id"
+    t.bigint "to_port_id"
     t.float "kilometers"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -22,12 +22,14 @@ ActiveRecord::Schema.define(version: 2021_07_27_063853) do
 
   create_table "fleet_travel_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "ship_id"
-    t.bigint "from_port"
-    t.bigint "to_port"
+    t.bigint "from_port_id"
+    t.bigint "to_port_id"
     t.datetime "time_depart"
     t.datetime "time_arrive"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "distance_traveled"
+    t.float "average_trip_speed"
     t.index ["ship_id"], name: "index_fleet_travel_logs_on_ship_id"
   end
 
