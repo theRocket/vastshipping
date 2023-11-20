@@ -91,17 +91,11 @@ test
 
 > bundle exec rspec spec/models
 
-## Sport Radar Contact
-
-My contact has been Sean Quinn (s.quinn@sportradar.com) and I have shared this private repo on Github only with him.
-
 ## Spec Provided
 
 Develop a class called FleetManager that would have the following methods or properties. Note, the definition of a 'completed trip' is a trip that has both started and ended. So when we are interested in number of completed trips in a day, we are interested in the trips that both started and completed with in that day. For this challenge, assume that the owner of Vast Shipping and all the boats operate in the same timezone.
 
-### Requirements Complied With
-
-- __Did not post this challenge or my solution on any public website__ -- (used private Github Repo)
+### Additional Code Quality Steps
 - Wrote unit tests in RSpec
 - Used rubocop for code style enforcement
 
